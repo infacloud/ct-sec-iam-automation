@@ -1,1 +1,0 @@
-ns_sa=["system:serviceaccount:abc:def","system:serviceaccount:abc:ggg"]

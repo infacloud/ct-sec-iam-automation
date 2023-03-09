@@ -8,7 +8,8 @@ def addProvider():
     req = request.json
     #TODO Input validations
     #TODO update existing roles
-    res = apply(req['region'], req['role_name'], req['provider_url'])
+    res = apply(req)
+    return Response(res)
    else:
       return Response(
         "Invalid Method",

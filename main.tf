@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+}
+
 variable "provider_url" {
   type = string
 }
@@ -8,6 +17,9 @@ variable "role_name" {
   type = string
 }
 variable "ns_sa" {
+  type = list(string)
+}
+variable "policies" {
   type = list(string)
 }
 provider "aws" {
@@ -28,7 +40,7 @@ output "iam_provider_arn" {
   value = aws_iam_openid_connect_provider.oidc_provider.arn
 }
 
-resource "aws_iam_role" "{var.role_name}" {
+resource "aws_iam_role" "role" {
   name = var.role_name
   assume_role_policy =  jsonencode({
     "Version": "2012-10-17",
@@ -51,8 +63,9 @@ depends_on = [aws_iam_openid_connect_provider.oidc_provider]
 }
 
 resource "aws_iam_role_policy_attachment" "policy_attachment" {
+  for_each = toset(var.policies)
   role       = aws_iam_role.role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+  policy_arn = each.value
   depends_on = [aws_iam_role.role]
 }
 
