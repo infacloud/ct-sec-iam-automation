@@ -1,7 +1,13 @@
+[
+    {
+    "role_name": "test_oidc1",
+    "ns_sa":["system:serviceaccount:ns1:serviceaccount1","system:serviceaccount:ns2:serviceaccount2"],
+    "policies":["arn:aws:iam::aws:policy/AmazonEC2FullAccess", "arn:aws:iam::aws:policy/AmazonS3FullAccess","arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"]
+},
 {
-    ROle1-> p1,p2,p3 (CLI, UI) - AWS 
-    Role1-> p1,p2,p4 - Blueprint
-    p1,p2,p3,p4 - merge
-    p1,p2,p3 - aws 
-    p1,p2,p3 - stick to blueprint
+    "role_name": "test_oidc2",
+    "ns_sa":["system:serviceaccount:ns13:serviceaccount13","system:serviceaccount:ns23:serviceaccount23"],
+    "policies":["arn:aws:iam::aws:policy/AmazonEC2FullAccess", "arn:aws:iam::aws:policy/AmazonS3FullAccess","arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"]
 }
+]
+

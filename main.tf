@@ -36,10 +36,6 @@ resource "aws_iam_openid_connect_provider" "oidc_provider" {
   thumbprint_list = [data.tls_certificate.cert.certificates.0.sha1_fingerprint]
 }
 
-output "iam_provider_arn" {
-  value = aws_iam_openid_connect_provider.oidc_provider.arn
-}
-
 resource "aws_iam_role" "role" {
   name = var.role_name
   assume_role_policy =  jsonencode({
@@ -67,5 +63,12 @@ resource "aws_iam_role_policy_attachment" "policy_attachment" {
   role       = aws_iam_role.role.name
   policy_arn = each.value
   depends_on = [aws_iam_role.role]
+}
+
+output "iam_role_arn" {
+  value = aws_iam_role.role.arn
+}
+output "iam_provider_arn" {
+  value = aws_iam_openid_connect_provider.oidc_provider.arn
 }
 
